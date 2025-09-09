@@ -1,4 +1,4 @@
-#include "Configs/Debug-$(FLAVOR).xcconfig"
+#include "Configs/Release-$(FLAVOR).xcconfig"
 PRODUCT_BUNDLE_IDENTIFIER = mx.com.pronoia.reve.dev
 PRODUCT_NAME = Reve (DEV)
 FLAVOR = dev

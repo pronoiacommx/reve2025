@@ -1,1 +1,11 @@
+#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"
 #include "Generated.xcconfig"
+
+// Parche seguro para evitar null en xcode_backend.dart
+FLUTTER_BUILD_DIR=build
+NATIVE_ASSETS_DIR=$(FLUTTER_BUILD_DIR)/ios/native_assets
+
+// (Opcional, si corres desde Xcode por scheme y quieres entrypoint por sabor)
+// FLUTTER_TARGET=lib/main_dev.dart     // en Debug-Runner-dev
+// FLUTTER_TARGET=lib/main_qa.dart      // en Debug-Runner-qa
+// FLUTTER_TARGET=lib/main_prd.dart     // en Release-Runner-prd/Profile-Runner-prd

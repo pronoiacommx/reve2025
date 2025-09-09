@@ -29,7 +29,28 @@ android {
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
+    flavorDimensions "env"
 
+    productFlavors {
+        dev {
+            dimension "env"
+            applicationIdSuffix ".dev"
+            resValue "string", "app_name", "SuperApp (DEV)"
+            manifestPlaceholders = [ appLabel: "SuperApp (DEV)" ]
+        }
+        qa {
+            dimension "env"
+            applicationIdSuffix ".qa"
+            resValue "string", "app_name", "SuperApp (QA)"
+            manifestPlaceholders = [ appLabel: "SuperApp (QA)" ]
+        }
+        prod {
+            dimension "env"
+            // sin suffix para prod
+            resValue "string", "app_name", "SuperApp"
+            manifestPlaceholders = [ appLabel: "SuperApp" ]
+        }
+    }
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.

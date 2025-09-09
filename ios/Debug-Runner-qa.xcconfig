@@ -1,0 +1,4 @@
+#include "Configs/Debug-$(FLAVOR).xcconfig"
+PRODUCT_BUNDLE_IDENTIFIER = mx.com.pronoia.reve.qa
+PRODUCT_NAME = Reve (QA)
+FLAVOR = qa

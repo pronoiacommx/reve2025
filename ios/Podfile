@@ -1,0 +1,45 @@
+platform :ios, '13.0'
+
+# --- Bloque para leer FLUTTER_ROOT y cargar podhelper del SDK ---
+generated = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
+unless File.exist?(generated)
+  raise "Falta #{generated}. Corre 'flutter pub get' en la raíz del proyecto."
+end
+flutter_root_line = File.foreach(generated).grep(/^FLUTTER_ROOT=/).first
+flutter_root = flutter_root_line.split('=')[1].strip.gsub('"','')
+require File.expand_path(File.join(flutter_root, 'packages', 'flutter_tools', 'bin', 'podhelper'), __FILE__)
+# ---------------------------------------------------------------
+
+flutter_ios_podfile_setup
+
+# Mapea TODAS tus build configurations por flavor a :debug o :release
+project 'Runner', {
+  'Debug'               => :debug,
+  'Profile'             => :release,
+  'Release'             => :release,
+
+  'Debug-Runner-dev'    => :debug,
+  'Profile-Runner-dev'  => :release,
+  'Release-Runner-dev'  => :release,
+
+  'Debug-Runner-qa'     => :debug,
+  'Profile-Runner-qa'   => :release,
+  'Release-Runner-qa'   => :release,
+
+  'Debug-Runner-prd'    => :debug,
+  'Profile-Runner-prd'  => :release,
+  'Release-Runner-prd'  => :release,
+}
+flutter_ios_podfile_setup
+
+target 'Runner' do
+  use_frameworks! :linkage => :static
+  use_modular_headers!
+  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    flutter_additional_ios_build_settings(target)
+  end
+end

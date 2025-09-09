@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'flavors/environment.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,6 +15,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      builder: (context, child) {
+        if (Environment.flavor == AppFlavor.prd) return child!;
+        final color = Environment.flavor == AppFlavor.dev
+            ? Colors.blue
+            : Colors.orange; // QA
+        return Banner(
+          message: Environment.flavor.name.toUpperCase(),
+          location: BannerLocation.topStart,
+          color: color,
+          child: child!,
+        );
+      },
       theme: ThemeData(
         // This is the theme of your application.
         //
